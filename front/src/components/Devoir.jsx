@@ -25,74 +25,68 @@ function Devoir({ nom, lien }) {
     setIsEditing(true);
   }
 
-  const styles = {
-    devoir: {
-      border: '1px solid #e0e0e0',
-      borderRadius: '8px',
-      padding: '16px',
-      margin: '16px 0',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      marginRight: '16px',
-      minHeight : '400px',
-      display: 'flex',
-      flexDirection: 'column',
-      minWidth : '211px',
-    },
-    title: {
-      fontSize: '20px',
-      marginBottom: '12px'
-    },
-    link: {
-      color: '#007BFF',
-      textDecoration: 'none',
-      marginBottom: '16px',
-      display: 'block'
-    },
-    form: {
-      marginTop: '16px'
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px'
-    },
-    input: {
-      padding: '8px',
-      width: '90%',
-      marginBottom: '12px',
-      borderRadius: '4px',
-      border: '1px solid #ccc',
-      marginRight: '16px'
-    },
-    textarea: {
-      width: '90%',
-      padding: '8px',
-      borderRadius: '4px',
-      border: '1px solid #ccc',
-      minHeight: '80px',
-      marginBottom: '12px',
-      marginRight: '16px'
-    },
-    button: {
-      padding: '8px 16px',
-      backgroundColor: '#007BFF',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer'
-    },
-    content: {
-      marginTop: '16px',
-      marginBottom: '12px',
-      marginRight: '16px'
-    },
-    
-  };
+    const styles = {
+      devoir: {
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+        padding: '16px',
+        margin: '16px 0',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        position: 'relative', 
+        minHeight: '400px',
+        minWidth: '250px',
+        marginRight: '16px',
+      },
+      title: {
+        fontSize: '20px',
+        marginBottom: '12px'
+      },
+      link: {
+        color: '#007BFF',
+        textDecoration: 'none',
+        marginBottom: '16px',
+        display: 'block'
+      },
+      form: {
+        marginTop: '16px'
+      },
+      label: {
+        display: 'block',
+        marginBottom: '8px'
+      },
+      input: {
+        padding: '8px',
+        width: '90%',
+        marginBottom: '12px',
+        borderRadius: '4px',
+        border: '1px solid #ccc'
+      },
+      textarea: {
+        width: '90%',
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #ccc',
+        minHeight: '80px',
+        marginBottom: '12px'
+      },
+      button: {
+        padding: '8px 16px',
+        backgroundColor: '#007BFF',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        position: 'absolute', // Positionne le bouton en bas à droite de la card
+        bottom: '16px',
+        right: '16px'
+      }
+    };
 
-  if (isEditing) {
-    return (
-      <div style={styles.devoir}>
-        <h2 style={styles.title}>{nom}</h2>
-        <a href={lien} target="_blank" rel="noopener noreferrer" style={styles.link}>Voir le devoir</a>
+  return (
+    <div style={styles.devoir}>
+      <h2 style={styles.title}>{nom}</h2>
+      <a href={lien} target="_blank" rel="noopener noreferrer" style={styles.link}>Voir le devoir</a>
+      {isEditing ? (
         <form onSubmit={handleSubmit} style={styles.form}>
           <div>
             <label style={styles.label}>Note: </label>
@@ -104,19 +98,21 @@ function Devoir({ nom, lien }) {
           </div>
           <button type="submit" style={styles.button}>Soumettre</button>
         </form>
-      </div>
-    );
-  } else {
-    return (
-      <div style={styles.devoir}>
-        <h2 style={styles.title}>{nom}</h2>
-        <a href={lien} target="_blank" rel="noopener noreferrer" style={styles.link}>Voir le devoir</a>
-        <div style={styles.content}>Note: {note}</div>
-        <div style={styles.content}>Commentaire: {commentaire}</div>
-        <button onClick={handleEdit} style={styles.button}>Modifier</button>
-      </div>
-    );
-  }
+      ) : (
+        <>
+          <div>
+            <p>Note:</p> 
+            <p>{note}</p>
+          </div>
+          <div>
+            <p>Commentaire:</p>
+            <p>{commentaire}</p>
+            </div>
+          <button onClick={handleEdit} style={styles.button}>Modifier</button>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default Devoir;
